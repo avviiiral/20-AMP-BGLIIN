@@ -1,0 +1,166 @@
+# 🧹 Combined .gitignore (Django + Angular + General)
+
+# ===============================
+
+# 🐍 PYTHON / DJANGO BACKEND
+
+# ===============================
+
+**pycache**/
+*.py[cod]
+*.pyo
+*.pyd
+*.sqlite3
+
+# Virtual environments
+
+venv/
+env/
+ENV/
+.venv/
+
+# Django
+
+*.log
+local_settings.py
+db.sqlite3
+media/
+staticfiles/
+
+# Migrations (optional - keep if needed)
+
+# */migrations/*
+
+# !*/migrations/**init**.py
+
+# ===============================
+
+# 🤖 ML / AI FILES
+
+# ===============================
+
+*.pt
+*.pth
+*.onnx
+*.engine
+*.h5
+
+# YOLO / inference outputs
+
+runs/
+outputs/
+
+# ===============================
+
+# 📊 CSV / DATA FILES
+
+# ===============================
+
+*.csv
+*.xlsx
+
+# (optional: comment below if you WANT CSV tracked)
+
+# production_hourly.csv
+
+# ===============================
+
+# 🧠 LOG FILES
+
+# ===============================
+
+*.log
+system.log
+
+# ===============================
+
+# 🌐 ANGULAR / FRONTEND
+
+# ===============================
+
+node_modules/
+dist/
+.angular/
+.cache/
+
+# Angular env files
+
+src/environments/environment*.ts
+
+# ===============================
+
+# 🧱 BUILD FILES
+
+# ===============================
+
+build/
+coverage/
+.tmp/
+
+# ===============================
+
+# 💻 OS FILES
+
+# ===============================
+
+.DS_Store
+Thumbs.db
+
+# ===============================
+
+# 🧪 EDITOR / IDE
+
+# ===============================
+
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# ===============================
+
+# 🐳 DOCKER
+
+# ===============================
+
+*.tar
+*.gz
+
+# ===============================
+
+# 🔐 SECRETS
+
+# ===============================
+
+.env
+.env.*
+*.key
+*.pem
+
+# ===============================
+
+# 📦 PACKAGE LOCK (optional)
+
+# ===============================
+
+# Uncomment if you DON'T want to track
+
+# package-lock.json
+
+# yarn.lock
+
+# ===============================
+
+# 📌 NOTES
+
+# ===============================
+
+# - Keeps repo clean
+
+# - Avoids large ML files
+
+# - Prevents leaking secrets
+
+# - Works for both backend + frontend
