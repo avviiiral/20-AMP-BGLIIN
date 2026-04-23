@@ -16,7 +16,7 @@ def capture_worker(cam_id, cam_cfg, frame_queue):
         cap = cv2.VideoCapture(rtsp, cv2.CAP_FFMPEG)
         cap.set(cv2.CAP_PROP_BUFFERSIZE, 2)
 
-        # ✅ THIS MUST BE INSIDE FUNCTION
+        
         if not cap.isOpened():
             logger.error(f"[{cam_id}] Camera connection failed. Retrying...")
             time.sleep(2)

@@ -7,6 +7,9 @@ from rest_framework.response import Response
 from core.system_controller import get_counts
 from core.config import CAMERAS
 
+from django.http import StreamingHttpResponse
+from core.video_stream import generate_frames
+import cv2
 
 @api_view(['GET'])
 def camera_list(request):
@@ -26,3 +29,10 @@ def camera_stats(request, camera_id):
         "camera_id": camera_id,
         "count": counts.get(camera_id, 0)
     })
+
+
+def video_feed(request, cam_id):
+    return StreamingHttpResponse(
+        generate_frames(cam_id),
+        content_type='multipart/x-mixed-replace; boundary=frame'
+    )
