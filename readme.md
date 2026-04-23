@@ -308,8 +308,11 @@ docker run -p 8000:8000 factory-monitor
 # 👨‍💻 AUTHOR
 
 **Aviral Goyal**
+
 AI / ML / Computer Vision Systems
+
 📧 Email: [aviralgoyal739@gmail.com](mailto:aviralgoyal739@gmail.com)
+
 🔗 LinkedIn: https://www.linkedin.com/in/avviiiral
 
 ---
