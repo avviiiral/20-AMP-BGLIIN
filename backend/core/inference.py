@@ -9,8 +9,7 @@ def inference_worker(frame_queues, shared_counts, reset_flag):
     model = YOLO(MODEL_PATH)
     model.to(DEVICE)
     logger.info(f"YOLO model loaded on {DEVICE}")
-    counters = {cid: Counter(cfg) for cid, cfg in CAMERAS.items()}
-
+    counters = {cid: Counter(cfg, cid) for cid, cfg in CAMERAS.items()}
     while True:
 
         batch_frames = []
@@ -24,6 +23,7 @@ def inference_worker(frame_queues, shared_counts, reset_flag):
 
             if len(batch_frames) >= BATCH_SIZE:
                 break
+
 
         if not batch_frames:
             time.sleep(0.01)

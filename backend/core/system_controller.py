@@ -1,5 +1,4 @@
 import multiprocessing as mp
-import os
 import threading
 import time
 from core.logger import logger
@@ -13,12 +12,14 @@ manager = None
 shared_counts = None
 reset_flag = None
 frame_queues = None
+
+# 🔥 store full process metadata (IMPORTANT)
 processes = []
+
 
 def start_system():
     global manager, shared_counts, reset_flag, frame_queues, processes
 
-    # 🔥 Prevent duplicate start
     if manager is not None:
         print("System already running")
         return
@@ -31,50 +32,97 @@ def start_system():
 
     frame_queues = {cid: mp.Queue(maxsize=5) for cid in CAMERAS}
 
-    # Capture processes
+    processes.clear()
+
+    # ==============================
+    # CAPTURE PROCESSES
+    # ==============================
     for cam_id, cam_cfg in CAMERAS.items():
-        p = mp.Process(target=capture_worker, args=(cam_id, cam_cfg, frame_queues[cam_id]))
+        p = mp.Process(
+            target=capture_worker,
+            args=(cam_id, cam_cfg, frame_queues[cam_id])
+        )
         p.daemon = True
         p.start()
-        processes.append(p)
 
-    # Inference process
-    p = mp.Process(target=inference_worker, args=(frame_queues, shared_counts, reset_flag))
+        processes.append({
+            "process": p,
+            "target": capture_worker,
+            "args": (cam_id, cam_cfg, frame_queues[cam_id])
+        })
+
+    # ==============================
+    # INFERENCE PROCESS
+    # ==============================
+    p = mp.Process(
+        target=inference_worker,
+        args=(frame_queues, shared_counts, reset_flag)
+    )
     p.daemon = True
     p.start()
-    processes.append(p)
 
-    # CSV logger
+    processes.append({
+        "process": p,
+        "target": inference_worker,
+        "args": (frame_queues, shared_counts, reset_flag)
+    })
+
+    # ==============================
+    # CSV LOGGER PROCESS
+    # ==============================
     init_csv()
-    p = mp.Process(target=csv_logger, args=(shared_counts, reset_flag))
+
+    p = mp.Process(
+        target=csv_logger,
+        args=(shared_counts, reset_flag)
+    )
     p.daemon = True
     p.start()
-    processes.append(p)
 
+    processes.append({
+        "process": p,
+        "target": csv_logger,
+        "args": (shared_counts, reset_flag)
+    })
+
+    # ==============================
+    # MONITOR THREAD
+    # ==============================
     threading.Thread(target=monitor_processes, daemon=True).start()
-    
-    logger.info("🚀 Core system started")
 
+    logger.info("🚀 Core system started")
     print("🚀 Core system started")
 
 
+# ==============================
+# GET COUNTS (API USE)
+# ==============================
 def get_counts():
     if shared_counts is None:
         return {}
     return dict(shared_counts)
 
+
+# ==============================
+# PROCESS MONITOR (FIXED)
+# ==============================
 def monitor_processes():
     global processes
 
     while True:
-        for i, p in enumerate(processes):
+        for i, p_data in enumerate(processes):
+            p = p_data["process"]
+
             if not p.is_alive():
                 print(f"[ERROR] Process {i} died. Restarting...")
 
-                new_p = mp.Process(target=p._target, args=p._args)
+                new_p = mp.Process(
+                    target=p_data["target"],
+                    args=p_data["args"]
+                )
                 new_p.daemon = True
                 new_p.start()
 
-                processes[i] = new_p
+                processes[i]["process"] = new_p
 
         time.sleep(5)

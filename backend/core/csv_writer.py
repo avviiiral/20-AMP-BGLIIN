@@ -13,15 +13,22 @@ def init_csv():
 
 
 def csv_logger(shared_counts, reset_flag):
+    last_slot = None
+
     while True:
         now = datetime.now()
-        row = [now.strftime("%Y-%m-%d"), now.strftime("%H:00-%H:59")]
+        current_slot = now.strftime("%H:00-%H:59")
 
-        for c in CAMERAS:
-            row.append(shared_counts[c])
+        if current_slot != last_slot:
+            row = [now.strftime("%Y-%m-%d"), current_slot]
 
-        with open(CSV_FILE, "a", newline="") as f:
-            writer = csv.writer(f)
-            writer.writerow(row)
+            for c in CAMERAS:
+                row.append(shared_counts[c])
 
-        time.sleep(10)
+            with open(CSV_FILE, "a", newline="") as f:
+                writer = csv.writer(f)
+                writer.writerow(row)
+
+            last_slot = current_slot
+
+        time.sleep(5)
