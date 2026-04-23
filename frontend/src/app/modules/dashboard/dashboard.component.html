@@ -1,0 +1,139 @@
+<div class="dashboard">
+
+
+    <div class="common-card p-4 border-1 border rounded-4 rounded">
+        <div class="d-md-flex justify-content-between align-items-center ">
+            <div class="Section-head-container dashboard-header" appFlipVertical>
+                <h2 class="Section-head  dashboard-head ">BG Shopfloor</h2>
+                <p class="Section-para dashboard-sub mb-1">Live production monitoring across all workstations</p>
+
+            </div>
+
+
+            <div class="efficiency-legend">
+
+                <span class="label">Efficiency:</span>
+
+                <span class="legend-item">
+                    <span class="dot green"></span>
+                    80+ %
+                </span>
+
+                <span class="legend-item">
+                    <span class="dot yellow"></span>
+                    70–79%
+                </span>
+
+                <span class="legend-item">
+                    <span class="dot red"></span>
+                    0–69%
+                </span>
+
+                <span>|</span>
+
+                <span class="legend-item">
+                    <span class="dot red"></span>
+                    &lt;50% efficiency
+                </span>
+
+            </div>
+        </div>
+
+        <hr class="mt-1">
+
+        <div class="row g-3 mt-3">
+
+            <div class="col-sm-6 col-md-4">
+
+                <div class="common-card h-100 stat-card stat-card-1 position-relative " appGsapCardUp>
+                    <!-- <img class="position-absolute circle-img"
+                    src="../../../assets/image-container/dashboard/dash-circle.png" alt=""> -->
+                    <p>Efficiency</p>
+                    <h2 class="green fs-3">83.2%</h2>
+
+                </div>
+
+            </div>
+
+            <div class="col-sm-6 col-md-4">
+
+                <div class="common-card h-100 stat-card " appGsapCardUp>
+
+                    <p>Output Progress</p>
+
+                    <h2 class="fs-5">383 / 1896</h2>
+
+                    <div class="progress">
+                        <div class="progress-bar bg-success" style="width:20%"></div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-sm-6 col-md-4">
+
+                <div class="common-card h-100 stat-card " appGsapCardUp>
+
+                    <p>Active Stations</p>
+
+                    <h2 class="fs-5 fw-medium mb-0">10/10</h2>
+
+                    <span class="green">All systems operational</span>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="common-card p-4 rounded-4 rounded mt-4">
+        <div class="">
+            <!-- Single Heading -->
+            <div class="Section-head-container">
+                <h2 class="Section-head">Production Line Monitoring</h2>
+            </div>
+        </div>
+        <hr class="my-2">
+        <div class="row g-4 mt-2">
+
+
+
+            <div class="col-sm-2 col-md-3 col-lg-3" *ngFor="let item of stations">
+
+                <div class="station-card overflow-hidden" routerLink="/dashboard/person-data">
+
+                    <div class="footage-container position-relative ">
+                        <div class="d-flex justify-content-between align-items-center mb-2 footage-top">
+                            <div class="live d-flex align-items-center  "><span class="live-dot me-1"></span> Live</div>
+
+                            <div class="percent"
+                                [ngClass]="{'effecency-line-green': item.status === '0', 'effecency-line-yellow': item.status === '1', 'effecency-line-red': item.status === '2'}">
+                                {{item.percent}}</div>
+                        </div>
+
+                        <div class="img-placeholder">
+                            <img [src]="item.stream" class="img-fluid" alt="">
+                        </div>
+                    </div>
+
+                    <div class="effecency-line"
+                        [ngClass]="{'effecency-line-green': item.status === '0', 'effecency-line-yellow': item.status === '1', 'effecency-line-red': item.status === '2'}">
+                    </div>
+
+                    <div class="station-info p-3 ">
+
+                        <h6 class="fs-12 mb-0">{{item.name}}</h6>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>

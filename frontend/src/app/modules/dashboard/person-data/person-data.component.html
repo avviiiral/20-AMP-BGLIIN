@@ -1,0 +1,270 @@
+<section class="person-data-page">
+  <button type="button" class="btn btn-link back-btn p-0 mb-2" routerLink="/dashboard">
+    <i class="fa-solid fa-arrow-left me-2"></i>Back
+  </button>
+
+  <div class="header-wrap">
+
+    <div class="Section-head-container">
+      <h2 class="Section-para ">
+        10- BOBBIN STOPPER PRESSING
+        <span class="status-dot"></span>
+      </h2>
+    </div>
+
+
+    <small class="last-update">Last update: 0m ago</small>
+  </div>
+
+  <div class="meta-strip">
+    <span class="fs-12"><i class="fa-regular fa-clock me-2"></i>11:17:17 AM</span>
+    <span class="fs-12"><i class="fa-regular fa-calendar me-2"></i>February 25, 2026</span>
+    <span class="fs-12"><i class="fa-regular fa-sun me-2"></i>DAY SHIFT</span>
+  </div>
+
+  <div class="tabs-wrap mt-4">
+    <ul class="nav nav-pills person-tabs" id="person-data-tabs" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="efficiency-tab" data-bs-toggle="pill" data-bs-target="#efficiency-pane"
+          type="button" role="tab" aria-controls="efficiency-pane" aria-selected="true">
+          Efficiency
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="clips-tab" data-bs-toggle="pill" data-bs-target="#clips-pane" type="button"
+          role="tab" aria-controls="clips-pane" aria-selected="false">
+          Clips
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="monthly-tab" data-bs-toggle="pill" data-bs-target="#monthly-pane" type="button"
+          role="tab" aria-controls="monthly-pane" aria-selected="false" (click)="enableMonthlyCharts()">
+          Monthly History
+        </button>
+      </li>
+    </ul>
+
+    <div class="tab-content" id="person-data-tabs-content">
+      <div class="tab-pane fade show active" id="efficiency-pane" role="tabpanel" aria-labelledby="efficiency-tab"
+        tabindex="0">
+        <div class="row g-3">
+          <div class="col-xxl-3 col-xl-4">
+            <article class="panel-card center-card">
+              <h6 class="card-title mb-4">Today's Output</h6>
+              <div class="chart-box donut-main">
+                <apx-chart [series]="todayOutputChartOptions.series" [chart]="todayOutputChartOptions.chart"
+                  [labels]="todayOutputChartOptions.labels" [colors]="todayOutputChartOptions.colors"
+                  [legend]="todayOutputChartOptions.legend" [stroke]="todayOutputChartOptions.stroke"
+                  [dataLabels]="todayOutputChartOptions.dataLabels" [plotOptions]="todayOutputChartOptions.plotOptions"
+                  [tooltip]="todayOutputChartOptions.tooltip">
+                </apx-chart>
+                <div class="chart-center">
+                  <strong>36.9%</strong>
+                  <small>1182 / 3200</small>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-xxl-7 col-xl-8">
+            <article class="panel-card">
+              <div class="card-head">
+                <h6 class="card-title mb-0">Hourly Output</h6>
+                <button type="button" class="btn btn-outline-secondary btn-sm">
+                  <i class="fa-regular fa-eye me-2"></i>Show Idle Time
+                </button>
+              </div>
+
+              <apx-chart [series]="hourlyOutputChartOptions.series" [chart]="hourlyOutputChartOptions.chart"
+                [colors]="hourlyOutputChartOptions.colors" [dataLabels]="hourlyOutputChartOptions.dataLabels"
+                [stroke]="hourlyOutputChartOptions.stroke" [xaxis]="hourlyOutputChartOptions.xaxis"
+                [yaxis]="hourlyOutputChartOptions.yaxis" [grid]="hourlyOutputChartOptions.grid"
+                [plotOptions]="hourlyOutputChartOptions.plotOptions" [tooltip]="hourlyOutputChartOptions.tooltip"
+                [annotations]="hourlyOutputChartOptions.annotations">
+              </apx-chart>
+
+              <div class="target-chip">Target: 400 units/hr</div>
+            </article>
+          </div>
+
+          <div class="col-xxl-2 col-xl-12">
+            <article class="panel-card center-card">
+              <h6 class="card-title">Idle Time Breakdown</h6>
+              <div class="chart-box donut-side">
+                <apx-chart [series]="idleBreakdownChartOptions.series" [chart]="idleBreakdownChartOptions.chart"
+                  [labels]="idleBreakdownChartOptions.labels" [colors]="idleBreakdownChartOptions.colors"
+                  [legend]="idleBreakdownChartOptions.legend" [stroke]="idleBreakdownChartOptions.stroke"
+                  [dataLabels]="idleBreakdownChartOptions.dataLabels"
+                  [plotOptions]="idleBreakdownChartOptions.plotOptions" [tooltip]="idleBreakdownChartOptions.tooltip">
+                </apx-chart>
+              </div>
+              <div class="legend-list">
+                <span><i class="dot red"></i>Operator absent</span>
+                <span><i class="dot violet"></i>Operator idle</span>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <div class="row g-3 mt-1">
+          <div class="col-xl col-lg-4 col-md-6" *ngFor="let card of summaryCards">
+            <article class="panel-card metric-card">
+              <h6 class="card-title">{{ card.title }}</h6>
+              <div class="metric-value" [ngClass]="'tone-' + card.tone">{{ card.value }}</div>
+              <small>{{ card.note }}</small>
+            </article>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-pane fade" id="clips-pane" role="tabpanel" aria-labelledby="clips-tab" tabindex="0">
+        <div class="row g-3">
+          <div class="col-lg-9">
+            <article class="panel-card empty-card">
+              <i class="fa-regular fa-circle-play"></i>
+              <h4>No Clips Found</h4>
+              <p>There were no video clips found for this workspace today.</p>
+            </article>
+          </div>
+          <div class="col-lg-3">
+            <article class="panel-card clips-side">
+              <div class="side-head">
+                <h6 class="card-title mb-0"><i class="fa-regular fa-folder-open me-2"></i>Clips Explorer</h6>
+                <i class="fa-regular fa-clock text-muted"></i>
+              </div>
+
+              <div class="timeline-list" *ngIf="clipTimeline.length > 0; else noClipsTimeline">
+                <div class="timeline-item" *ngFor="let clip of clipTimeline">
+                  <small>{{ clip.time }}</small>
+                  <strong>{{ clip.event }}</strong>
+                  <span>{{ clip.duration }}</span>
+                </div>
+              </div>
+
+              <ng-template #noClipsTimeline>
+                <div class="timeline-empty">
+                  <i class="fa-regular fa-circle-play"></i>
+                  <h5>No clips available</h5>
+                  <p>No clips found for the selected time period</p>
+                </div>
+              </ng-template>
+            </article>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-pane fade" id="monthly-pane" role="tabpanel" aria-labelledby="monthly-tab" tabindex="0">
+        <div class="monthly-head">
+          <div class="shift-toggle mb-3">
+            <button type="button" class="btn btn-light active me-2">Day Shift</button>
+            <button type="button" class="btn btn-light">Night Shift</button>
+          </div>
+          <button type="button" class="btn btn-outline-secondary btn-sm">
+            <i class="fa-solid fa-file-arrow-down me-2"></i>PDF
+          </button>
+        </div>
+
+        <div class="row g-3">
+          <div class="col-xl-6">
+            <article class="panel-card">
+              <div class="calendar-head">
+                <span><i class="fa-regular fa-calendar me-2"></i>Feb 1 - Feb 28, 2026</span>
+              </div>
+
+              <div class="calendar-grid week-head">
+                <span *ngFor="let weekDay of weekDays">{{ weekDay }}</span>
+              </div>
+
+              <div class="calendar-grid days-grid">
+                <button type="button" class="calendar-cell"
+                  [ngClass]="['state-' + day.state, day.selected ? 'is-selected' : '']"
+                  *ngFor="let day of calendarDays">
+                  <span *ngIf="day.day as dayNumber">{{ dayNumber }}</span>
+                </button>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-xl-6">
+            <div class="row g-3">
+              <div class="col-md-4">
+                <article class="panel-card kpi-card">
+                  <small>Avg Efficiency</small>
+                  <h3>76%</h3>
+                  <span class="kpi-trend">0.0% vs last month</span>
+                </article>
+              </div>
+              <div class="col-md-4">
+                <article class="panel-card kpi-card">
+                  <small>Avg Daily Output</small>
+                  <h3>2,419</h3>
+                  <span class="kpi-trend">0.0% vs last month</span>
+                </article>
+              </div>
+              <div class="col-md-4">
+                <article class="panel-card kpi-card">
+                  <small>Avg Cycle Time</small>
+                  <h3>3s</h3>
+                  <span class="kpi-trend">0.0% vs last month</span>
+                </article>
+              </div>
+
+              <div class="col-md-6">
+                <article class="panel-card donut-panel">
+                  <h6 class="card-title">Time Utilization</h6>
+                  <div class="mini-donut-wrap">
+                    <apx-chart [series]="utilizationChartOptions.series" [chart]="utilizationChartOptions.chart"
+                      [labels]="utilizationChartOptions.labels" [colors]="utilizationChartOptions.colors"
+                      [legend]="utilizationChartOptions.legend" [stroke]="utilizationChartOptions.stroke"
+                      [dataLabels]="utilizationChartOptions.dataLabels"
+                      [plotOptions]="utilizationChartOptions.plotOptions" [tooltip]="utilizationChartOptions.tooltip">
+                    </apx-chart>
+                    <div class="chart-center small">
+                      <strong>63%</strong>
+                      <small>Efficiency</small>
+                    </div>
+                  </div>
+                  <div class="legend-list mt-2">
+                    <span><i class="dot green"></i>Productive</span>
+                    <span><i class="dot gray"></i>Idle</span>
+                  </div>
+                </article>
+              </div>
+
+              <div class="col-md-6">
+                <article class="panel-card donut-panel">
+                  <h6 class="card-title">Idle Time Breakdown</h6>
+                  <div class="mini-donut-wrap">
+                    <apx-chart [series]="monthlyIdleChartOptions.series" [chart]="monthlyIdleChartOptions.chart"
+                      [labels]="monthlyIdleChartOptions.labels" [colors]="monthlyIdleChartOptions.colors"
+                      [legend]="monthlyIdleChartOptions.legend" [stroke]="monthlyIdleChartOptions.stroke"
+                      [dataLabels]="monthlyIdleChartOptions.dataLabels"
+                      [plotOptions]="monthlyIdleChartOptions.plotOptions" [tooltip]="monthlyIdleChartOptions.tooltip">
+                    </apx-chart>
+                  </div>
+                  <div class="legend-list mt-2">
+                    <span><i class="dot red"></i>Operator absent</span>
+                    <span><i class="dot violet"></i>Operator idle</span>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <article class="panel-card">
+              <h6 class="card-title mb-2">Daily Output</h6>
+              <apx-chart *ngIf="monthlyChartsReady" [series]="dailyOutputChartOptions.series"
+                [chart]="dailyOutputChartOptions.chart" [colors]="dailyOutputChartOptions.colors"
+                [dataLabels]="dailyOutputChartOptions.dataLabels" [stroke]="dailyOutputChartOptions.stroke"
+                [xaxis]="dailyOutputChartOptions.xaxis" [yaxis]="dailyOutputChartOptions.yaxis"
+                [grid]="dailyOutputChartOptions.grid" [plotOptions]="dailyOutputChartOptions.plotOptions"
+                [tooltip]="dailyOutputChartOptions.tooltip" [annotations]="dailyOutputChartOptions.annotations">
+              </apx-chart>
+            </article>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

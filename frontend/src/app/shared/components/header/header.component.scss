@@ -1,0 +1,81 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 25px;
+  background: #fff;
+  border-bottom: 1px solid #eee;
+  position: fixed;
+  left: 250px;
+  top: 0;
+  width: calc(100% - 250px);
+  z-index: 900;
+}
+
+.shift-icon {
+  width: 25px;
+  height: 25px;
+  object-fit: contain;
+}
+
+.left h5 {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.left span {
+  font-size: 13px;
+  color: #888;
+}
+
+
+.logout::after {
+  content: "";
+  position: absolute;
+  left: -2px;
+  top: 50%;
+  translate: 0 -50%;
+  height: 110%;
+  width: 2px;
+  background: #ecf0f8;
+}
+
+.logout button {
+  border: 0;
+}
+
+.logout-modal-dialog {
+  max-width: 380px;
+}
+
+.logout-modal-content {
+  border: none;
+  border-radius: 14px;
+}
+
+.shift-box {
+  background: #e3e9f4a9;
+  padding: 7px 15px;
+  border-radius: 15px;
+  box-shadow: 0 0 5px #3174f118;
+}
+
+.shift-box h6 {
+  font-size: 13px;
+  margin: 0;
+  font-weight: 500;
+}
+
+@media screen and (max-width: 1600px) {
+  .header {
+    left: 200px;
+    width: calc(100% - 200px);
+  }
+}
+
+@media (max-width: 767px) {
+  .header {
+    left: 0;
+    width: 100%;
+  }
+}

@@ -1,0 +1,43 @@
+<div class="header">
+  <div class="center">
+    <div class="shift-box d-flex align-items-center gap-2">
+      <img src="../../../../assets/image-container/header/sun.png" class="shift-icon" alt="">
+      <h6>Day Shift 09:00 - 17:30</h6>
+    </div>
+  </div>
+
+  <div class="left d-flex align-items-center gap-4">
+    <div class="border-right-1 ">
+      <h5 class="mb-0">{{ nowTime }}</h5>
+      <span>{{ nowDate }}</span>
+    </div>
+
+
+    <div class="logout position-relative">
+      <button type="button" class="btn btn-transparent" data-bs-toggle="modal" data-bs-target="#logoutConfirmModal">
+        <i class="fa-solid fa-arrow-right-from-bracket fs-5"></i>
+      </button>
+    </div>
+
+
+
+  </div>
+</div>
+
+<div class="modal fade" id="logoutConfirmModal" tabindex="-1" aria-labelledby="logoutConfirmModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered logout-modal-dialog">
+    <div class="modal-content logout-modal-content">
+      <div class="modal-header border-0 pb-0">
+        <h5 class="modal-title" id="logoutConfirmModalLabel">Confirm Logout</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body pt-2">
+        Are you sure you want to log out?
+      </div>
+      <div class="modal-footer border-0 pt-0">
+        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="confirmLogout()">Logout</button>
+      </div>
+    </div>
+  </div>
+</div>

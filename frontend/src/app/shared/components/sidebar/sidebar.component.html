@@ -1,0 +1,90 @@
+<!--  -->
+<div class="sa-shell">
+
+  <div class="sa-sidebar-backdrop d-lg-none" [class.show]="mobileSidebarOpen" (click)="closeSidebar()"></div>
+
+  <aside class="sa-sidebar" [class.is-open]="mobileSidebarOpen">
+    <div class="d-flex flex-column h-100">
+      <div class="sa-brand d-none d-lg-flex align-items-center py-3">
+        <div class="sa-brand-icon">
+          <h6 class="mt-2">B</h6>
+        </div>
+        <div class="ms-3">
+          <h5 class="mb-0">Bagla</h5>
+          <small>Electricals And Electronics</small>
+        </div>
+      </div>
+
+      <ul class="nav flex-column sa-nav-list">
+
+
+
+        <li class="nav-item">
+
+          <a class="nav-link" routerLink="/dashboard" routerLinkActive="active">
+
+            <i class="fa-solid fa-home"></i>
+            <span>Home</span>
+          </a>
+
+
+          <a class="nav-link" routerLink="/leaders" routerLinkActive="active">
+
+            <i class="fa-solid fa-users"></i>
+            <span>Leaders</span>
+          </a>
+
+          <a class="nav-link" routerLink="/lines" routerLinkActive="active">
+
+            <i class="fa-solid fa-layer-group"></i>
+            <span>Lines</span>
+          </a>
+
+          <a class="nav-link" routerLink="/improve" routerLinkActive="active">
+
+            <i class="fa-solid fa-lightbulb"></i>
+            <span>Improve</span>
+          </a>
+
+          <a class="nav-link" routerLink="/health" routerLinkActive="active">
+
+            <i class="fa-solid fa-heart-pulse"></i>
+            <span>Health</span>
+          </a>
+
+          <a href="#" class="nav-link settings-toggle" [class.active]="settingsOpen" (click)="toggleSettings($event)">
+            <i class="fa-solid fa-gear"></i>
+            <span>Settings</span>
+            <i class="fa-solid fa-chevron-down toggle-icon" [class.open]="settingsOpen"></i>
+          </a>
+
+          <div class="sub-menu" *ngIf="settingsOpen">
+            <ng-container *ngFor="let child of settingsChildren">
+              <a class="nav-link child-link" *ngIf="child.route; else noRouteChild" [routerLink]="child.route"
+                routerLinkActive="active">
+                <i class="fa-solid" [ngClass]="child.icon"></i>
+                <span>{{ child.label }}</span>
+              </a>
+              <ng-template #noRouteChild>
+                <a href="#" class="nav-link child-link" (click)="$event.preventDefault()">
+                  <i class="fa-solid" [ngClass]="child.icon"></i>
+                  <span>{{ child.label }}</span>
+                </a>
+              </ng-template>
+            </ng-container>
+          </div>
+
+        </li>
+
+      </ul>
+
+      <div class="sa-profile mt-auto d-flex align-items-center">
+        <div class="sa-avatar">PM</div>
+        <div class="ms-3">
+          <p class="mb-0 sa-name">GangaRam</p>
+          <p class="mb-0 sa-email">GangaRam@bagla.com</p>
+        </div>
+      </div>
+    </div>
+  </aside>
+</div>
