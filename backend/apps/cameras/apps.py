@@ -7,9 +7,11 @@ class CamerasConfig(AppConfig):
     name = 'apps.cameras'
 
     def ready(self):
-        # 🔥 Prevent double start (VERY IMPORTANT)
-        if os.environ.get('RUN_MAIN') != 'true':
-            return
+        if os.environ.get('RUN_MAIN') == 'true':
+            print("🚀 Starting camera threads...")
 
-        from core.system_controller import start_system
-        start_system()
+            from core.video_stream import start_all_cameras
+            start_all_cameras()
+
+            from core.system_controller import start_system
+            start_system()

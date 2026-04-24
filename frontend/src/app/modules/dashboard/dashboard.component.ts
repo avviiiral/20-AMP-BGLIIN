@@ -111,6 +111,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     private router: Router
   ) {}
 
+  
   // ==============================
   // INIT
   // ==============================
@@ -173,7 +174,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   // ==============================
   // NAVIGATION (NO routerLink ISSUE)
   // ==============================
-  openStation(station: any): void {
-    this.router.navigate(['/dashboard/station', station.id]);
+  openStation(item: any) {
+  this.router.navigate(['/dashboard/station', item.id]);
   }
 }
