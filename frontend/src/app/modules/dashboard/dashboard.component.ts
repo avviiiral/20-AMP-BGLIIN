@@ -23,7 +23,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   stations: any[] = [
   {
     id: 'cam10',
-    name: '10 – BOBBIN STOPPER PRESSING',
+    name: 'BOBBIN STOPPER PRESSING',
     target: 200,
     percent: '0%',
     status: '2',
@@ -31,7 +31,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   },
   {
     id: 'cam9',
-    name: '30 – CORE FRAME RIVETTING',
+    name: 'CORE FRAME RIVETTING',
     target: 180,
     percent: '0%',
     status: '2',
@@ -39,7 +39,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   },
   {
     id: 'cam8',
-    name: '50 – FRAME & MSPRING ASS',
+    name: 'FRAME & MSPRING ASS',
     target: 220,
     percent: '0%',
     status: '2',
@@ -47,12 +47,61 @@ export class DashboardComponent implements OnInit, OnDestroy {
   },
   {
     id: 'cam7',
-    name: '90 – FRAME & BASE ASS',
+    name: 'FRAME & BASE ASS',
     target: 160,
     percent: '0%',
     status: '2',
     stream: 'http://127.0.0.1:8000/api/video_feed/cam7'
+  },
+  {
+    id: 'cam6',
+    name: 'WIRE ROUTING',
+    target: 160,
+    percent: '0%',
+    status: '2',
+    stream: 'http://127.0.0.1:8000/api/video_feed/cam6'
+  },
+  {
+    id: 'cam5',
+    name: 'COMMON CRIMPING',
+    target: 180,
+    percent: '0%',
+    status: '2',
+    stream: 'http://127.0.0.1:8000/api/video_feed/cam5'
+  },
+  {
+    id: 'cam4',
+    name: 'FRAME CRIPMING',
+    target: 220,
+    percent: '0%',
+    status: '2',
+    stream: 'http://127.0.0.1:8000/api/video_feed/cam4'
+  },
+  {
+    id: 'cam3',
+    name: 'COIL SOLDRING',
+    target: 160,
+    percent: '0%',
+    status: '2',
+    stream: 'http://127.0.0.1:8000/api/video_feed/cam3'
+  },
+  {
+    id: 'cam2',
+    name: '	MIDDLE TESTING',
+    target: 160,
+    percent: '0%',
+    status: '2',
+    stream: 'http://127.0.0.1:8000/api/video_feed/cam2'
+  },
+  {
+    id: 'cam1',
+    name: 'AIR WASHING',
+    target: 160,
+    percent: '0%',
+    status: '2',
+    stream: 'http://127.0.0.1:8000/api/video_feed/cam1'
   }
+
   ];
 
   private intervalId: any;
