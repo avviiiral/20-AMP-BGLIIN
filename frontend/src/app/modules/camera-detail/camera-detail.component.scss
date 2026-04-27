@@ -1,0 +1,25 @@
+.station-detail {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.calendar-day {
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 11px;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.bg-purple { background-color: #a855f7; }

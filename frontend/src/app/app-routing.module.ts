@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MainLayoutComponentComponent } from './layout/main-layout-component/main-layout-component.component';
 import { CameraDetailComponent } from './modules/camera-detail/camera-detail.component';
+import { StationDetailComponent } from './modules/station-detail/station-detail.component';
 
 const routes: Routes = [
 
@@ -31,8 +32,8 @@ const routes: Routes = [
 
       // ✅ ADD THIS
       {
-        path: 'camera/:id',
-        component: CameraDetailComponent
+        path: 'station/:id',
+        component: StationDetailComponent
       }
 
     ]
