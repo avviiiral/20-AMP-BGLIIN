@@ -59,6 +59,11 @@ MIDDLEWARE = [
 CORS_ALLOW_ALL_ORIGINS = True
 ALLOWED_HOSTS = ["*"]
 
+# ✅ Required for MJPEG streaming — allows multiple concurrent stream connections
+# Without this, Django's dev server handles one request at a time, so only
+# 1 camera stream works and all others freeze/hang.
+USE_THREADING = True
+
 TIME_ZONE = 'Asia/Kolkata'
 USE_TZ = False
 

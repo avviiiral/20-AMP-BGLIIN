@@ -15,6 +15,13 @@ def main():
             "available on your PYTHONPATH environment variable? Did you "
             "forget to activate a virtual environment?"
         ) from exc
+
+    # ✅ Force threaded mode for MJPEG streaming.
+    # Django dev server defaults to single-threaded, which means only 1 camera
+    # stream can be served at a time. --nothreading=False enables concurrent streams.
+    if 'runserver' in sys.argv and '--nothreading' not in sys.argv:
+        sys.argv.append('--nothreading=False')
+
     execute_from_command_line(sys.argv)
 
 
