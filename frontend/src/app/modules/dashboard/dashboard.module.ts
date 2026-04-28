@@ -9,13 +9,14 @@ import { PersonDataComponent } from './person-data/person-data.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { CoreModule } from 'src/app/core/core.module';
 import { StationComponent } from '../station/station.component';
-
+import { CameraDetailComponent } from './camera-detail/camera-detail.component';
 
 @NgModule({
   declarations: [
     DashboardComponent,
     PersonDataComponent,
-    StationComponent
+    StationComponent,
+    CameraDetailComponent
   ],
   imports: [
     CommonModule,
@@ -23,7 +24,6 @@ import { StationComponent } from '../station/station.component';
     LayoutModule,
     NgApexchartsModule,
     CoreModule,
-    RouterModule
   ]
 })
 export class DashboardModule { }
