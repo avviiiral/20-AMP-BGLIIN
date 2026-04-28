@@ -1,0 +1,5 @@
+<h2>Efficiency: {{dashboardData?.efficiency}}%</h2>
+
+<div *ngFor="let h of dashboardData?.hourly_output">
+  {{h.time}} - {{h.output}}
+</div>

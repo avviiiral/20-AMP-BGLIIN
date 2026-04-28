@@ -1,7 +1,7 @@
 import csv
 import os
 from core.config import CSV_FILE, CAMERAS
-
+from .views import camera_dashboard
 
 def read_csv():
     if not os.path.exists(CSV_FILE):

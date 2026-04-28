@@ -8,6 +8,8 @@ from core.config import CAMERAS
 from .utils import get_camera_history, compute_production, compute_efficiency
 
 from core.system_controller import shared_counts
+import csv
+from django.http import JsonResponse
 
 
 @api_view(['GET'])
@@ -68,3 +70,40 @@ def efficiency(request, camera_id):
     target = int(request.GET.get("target", 100))
 
     return Response(compute_efficiency(cam["name"], target))
+def camera_dashboard(request, cam_id):
+    file_path = f"data/camera_{cam_id}.csv"
+
+    hourly_output = []
+    total_output = 0
+    total_target = 0
+    idle_time = 0
+
+    try:
+        with open(file_path, 'r') as f:
+            reader = csv.DictReader(f)
+
+            for row in reader:
+                output = int(row['output'])
+                target = int(row['target'])
+
+                hourly_output.append({
+                    "time": row['timestamp'],
+                    "output": output
+                })
+
+                total_output += output
+                total_target += target
+                idle_time += int(row['idle_time'])
+
+        efficiency = (total_output / total_target) * 100 if total_target else 0
+
+        return JsonResponse({
+            "today_output": total_output,
+            "target": total_target,
+            "efficiency": round(efficiency, 2),
+            "hourly_output": hourly_output,
+            "idle_time": idle_time
+        })
+
+    except Exception as e:
+        return JsonResponse({"error": str(e)})

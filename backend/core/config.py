@@ -16,7 +16,7 @@ CAMERAS = {
 USERNAME = "admin"
 PASSWORD = "Admin%40123"
 
-MODEL_PATH = r"D:\cam\runs\detect\train\weights\best.pt"
+MODEL_PATH = r"D:\20-Amp\20-AMP-BGLIIN\backend\model\runs\detect\train\weights\best.pt"
 
 FRAME_W, FRAME_H = 512, 288
 ORIGINAL_W, ORIGINAL_H = 1920, 1080
