@@ -172,3 +172,6 @@ img {
         background: #ef4444;
     }
 }
+.img-placeholder img {
+  pointer-events: none;
+}

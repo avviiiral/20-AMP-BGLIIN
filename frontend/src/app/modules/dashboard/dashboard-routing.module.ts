@@ -8,8 +8,8 @@ import { CameraDetailComponent } from './camera-detail/camera-detail.component';
 
 const routes: Routes = [
   {
-    path: '',
-    component: DashboardComponent
+    path: 'camera/:id',
+    component: CameraDetailComponent
   },
   {
     path: 'person-data',
@@ -20,8 +20,9 @@ const routes: Routes = [
     component: StationComponent
   },
   {
-    path: 'camera/:id',
-    component: CameraDetailComponent
+    path: '',
+    component: DashboardComponent,
+    pathMatch: 'full'
   }
 ];
 

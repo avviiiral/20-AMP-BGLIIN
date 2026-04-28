@@ -1,6 +1,6 @@
+import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
 
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
@@ -20,10 +20,11 @@ import { CameraDetailComponent } from './camera-detail/camera-detail.component';
   ],
   imports: [
     CommonModule,
+    RouterModule,
     DashboardRoutingModule,
     LayoutModule,
     NgApexchartsModule,
-    CoreModule,
+    CoreModule
   ]
 })
 export class DashboardModule { }

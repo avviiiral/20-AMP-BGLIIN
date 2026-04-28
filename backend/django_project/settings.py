@@ -43,6 +43,7 @@ INSTALLED_APPS = [
 
     'apps.cameras',
     'apps.analytics',
+    'apps.api'
 ]
 
 MIDDLEWARE = [

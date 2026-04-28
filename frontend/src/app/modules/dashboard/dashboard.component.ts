@@ -133,7 +133,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   // NAVIGATION
   // ==============================
   openCamera(id: string) {
-  this.router.navigate(['/dashboard/camera', id]);
+    this.router.navigateByUrl('/dashboard/camera/' + id);
   }
 
   openStation(item: any) {
