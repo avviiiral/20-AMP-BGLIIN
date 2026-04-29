@@ -5,13 +5,17 @@ from datetime import datetime
 from core.config import CSV_FILE, CAMERAS
 
 
+# 🔒 Freeze camera order (prevents column mismatch)
+CAMERA_KEYS = list(CAMERAS.keys())
+
+
 def init_csv():
     if not os.path.exists(CSV_FILE):
         with open(CSV_FILE, "w", newline="") as f:
             writer = csv.writer(f)
             writer.writerow(
                 ["Date", "Time Slot"] +
-                [CAMERAS[c]["name"] for c in CAMERAS]
+                [CAMERAS[c]["name"] for c in CAMERA_KEYS]
             )
 
 
@@ -33,48 +37,59 @@ def csv_logger(shared_counts, reset_flag):
         )
 
         if hour_changed:
-            # 🔁 Reset counters at hour boundary
             reset_flag.value = 1
             print(f"🔄 Hour changed → Reset triggered")
 
-        # ✅ Build current row (always latest counts)
+        # 🔒 Take snapshot of counts (avoid race condition)
+        counts_copy = dict(shared_counts)
+
+        # ✅ Build current row
         row = [current_date, current_slot]
-        for c in CAMERAS:
-            row.append(shared_counts[c])
+        for c in CAMERA_KEYS:
+            row.append(counts_copy.get(c, 0))
 
         # ================= CSV UPDATE =================
         rows = []
+
         if os.path.exists(CSV_FILE):
             with open(CSV_FILE, "r") as f:
                 rows = list(csv.reader(f))
 
-        header = rows[0] if rows else ["Date", "Time Slot"] + [CAMERAS[c]["name"] for c in CAMERAS]
+        header = (
+            rows[0] if rows else
+            ["Date", "Time Slot"] + [CAMERAS[c]["name"] for c in CAMERA_KEYS]
+        )
+
         data = rows[1:] if rows else []
 
         updated = False
 
-        # 🔁 Update existing row if same hour exists
+        # 🔁 Update existing row
         for i in range(len(data)):
             if data[i][0] == current_date and data[i][1] == current_slot:
                 data[i] = row
                 updated = True
                 break
 
-        # ➕ If new hour → add new row
+        # ➕ Add new row if not found
         if not updated:
             data.append(row)
 
-        # ✍️ Rewrite CSV
-        with open(CSV_FILE, "w", newline="") as f:
+        # 🔒 SAFE WRITE (prevents corruption)
+        temp_file = CSV_FILE + ".tmp"
+
+        with open(temp_file, "w", newline="") as f:
             writer = csv.writer(f)
             writer.writerow(header)
             writer.writerows(data)
+
+        os.replace(temp_file, CSV_FILE)
 
         # update trackers
         last_hour = current_hour
         last_date = current_date
 
-        print(f"📊 Updated CSV: {current_date} {current_slot}")
+        print(f"Updated CSV: {current_date} {current_slot}")
 
         # ⏱️ Run every 5 minutes
         time.sleep(300)

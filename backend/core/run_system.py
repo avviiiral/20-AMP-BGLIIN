@@ -27,7 +27,7 @@ def start():
     init_csv()
     mp.Process(target=csv_logger, args=(shared_counts, reset_flag), daemon=True).start()
 
-    print("🚀 Core running")
+    print("Core running")
 
     while True:
         time.sleep(1)

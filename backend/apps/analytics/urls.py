@@ -1,10 +1,10 @@
 from django.urls import path
-from .views import history, production, efficiency , dashboard , camera_dashboard 
+from .views import *
 
 urlpatterns = [
-    path('history/<str:camera_id>/', history),
-    path('production/<str:camera_id>/', production),
-    path('efficiency/<str:camera_id>/', efficiency),
-    path('dashboard/', dashboard),
-    path('api/camera/<str:cam_id>/', camera_dashboard),
+    path('dashboard/', dashboard_summary),
+    path('stations/', stations),
+    path('camera/<str:camera_id>/', camera_detail),
+    path('camera/<str:camera_id>/calendar/', camera_calendar),
+    path('camera/<str:camera_id>/history/', camera_history),
 ]
