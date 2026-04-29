@@ -1,0 +1,53 @@
+<div class="container">
+
+  <h2>{{ station }}</h2>
+
+  <div class="top">
+
+    <!-- LEFT: Donut -->
+    <div class="card">
+      <h3>Today's Output</h3>
+      <canvas id="donutChart"></canvas>
+      <p>{{ totalOutput }} / 3200</p>
+    </div>
+
+    <!-- CENTER: Bar -->
+    <div class="card wide">
+      <h3>Hourly Output</h3>
+      <canvas id="hourlyChart"></canvas>
+    </div>
+
+    <!-- RIGHT: Idle -->
+    <div class="card">
+      <h3>Idle Breakdown</h3>
+      <canvas id="idleChart"></canvas>
+    </div>
+
+  </div>
+
+  <!-- KPI ROW -->
+  <div class="kpis">
+
+    <div class="kpi">
+      <h4>Efficiency</h4>
+      <p>{{ efficiency | number:'1.1-1' }}%</p>
+    </div>
+
+    <div class="kpi">
+      <h4>PPH</h4>
+      <p>{{ pph | number:'1.0-0' }}</p>
+    </div>
+
+    <div class="kpi">
+      <h4>Total Output</h4>
+      <p>{{ totalOutput }}</p>
+    </div>
+
+    <div class="kpi">
+      <h4>Hours</h4>
+      <p>{{ hourlyData.length }}</p>
+    </div>
+
+  </div>
+
+</div>

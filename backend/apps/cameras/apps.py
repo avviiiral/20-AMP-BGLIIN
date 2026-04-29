@@ -14,4 +14,5 @@ class CamerasConfig(AppConfig):
             start_all_cameras()
 
             from core.system_controller import start_system
-            start_system()
+            pass
+            #start_system()
