@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
 import {
   ApexAnnotations,
   ApexAxisChartSeries,
@@ -69,8 +69,15 @@ interface CalendarDay {
   templateUrl: './person-data.component.html',
   styleUrls: ['./person-data.component.scss']
 })
-export class PersonDataComponent {
+export class PersonDataComponent implements AfterViewInit {
+  pageReady = false;
   monthlyChartsReady = false;
+
+  ngAfterViewInit(): void {
+    setTimeout((): void => {
+      this.pageReady = true;
+    }, 0);
+  }
 
   enableMonthlyCharts(): void {
     if (this.monthlyChartsReady) {

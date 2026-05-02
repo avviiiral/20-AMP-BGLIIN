@@ -52,7 +52,7 @@
             <article class="panel-card center-card">
               <h6 class="card-title mb-4">Today's Output</h6>
               <div class="chart-box donut-main">
-                <apx-chart [series]="todayOutputChartOptions.series" [chart]="todayOutputChartOptions.chart"
+                <apx-chart *ngIf="pageReady" [series]="todayOutputChartOptions.series" [chart]="todayOutputChartOptions.chart"
                   [labels]="todayOutputChartOptions.labels" [colors]="todayOutputChartOptions.colors"
                   [legend]="todayOutputChartOptions.legend" [stroke]="todayOutputChartOptions.stroke"
                   [dataLabels]="todayOutputChartOptions.dataLabels" [plotOptions]="todayOutputChartOptions.plotOptions"
@@ -75,7 +75,7 @@
                 </button>
               </div>
 
-              <apx-chart [series]="hourlyOutputChartOptions.series" [chart]="hourlyOutputChartOptions.chart"
+              <apx-chart *ngIf="pageReady" [series]="hourlyOutputChartOptions.series" [chart]="hourlyOutputChartOptions.chart"
                 [colors]="hourlyOutputChartOptions.colors" [dataLabels]="hourlyOutputChartOptions.dataLabels"
                 [stroke]="hourlyOutputChartOptions.stroke" [xaxis]="hourlyOutputChartOptions.xaxis"
                 [yaxis]="hourlyOutputChartOptions.yaxis" [grid]="hourlyOutputChartOptions.grid"
@@ -91,7 +91,7 @@
             <article class="panel-card center-card">
               <h6 class="card-title">Idle Time Breakdown</h6>
               <div class="chart-box donut-side">
-                <apx-chart [series]="idleBreakdownChartOptions.series" [chart]="idleBreakdownChartOptions.chart"
+                <apx-chart *ngIf="pageReady" [series]="idleBreakdownChartOptions.series" [chart]="idleBreakdownChartOptions.chart"
                   [labels]="idleBreakdownChartOptions.labels" [colors]="idleBreakdownChartOptions.colors"
                   [legend]="idleBreakdownChartOptions.legend" [stroke]="idleBreakdownChartOptions.stroke"
                   [dataLabels]="idleBreakdownChartOptions.dataLabels"
@@ -213,7 +213,7 @@
                 <article class="panel-card donut-panel">
                   <h6 class="card-title">Time Utilization</h6>
                   <div class="mini-donut-wrap">
-                    <apx-chart [series]="utilizationChartOptions.series" [chart]="utilizationChartOptions.chart"
+                    <apx-chart *ngIf="pageReady" [series]="utilizationChartOptions.series" [chart]="utilizationChartOptions.chart"
                       [labels]="utilizationChartOptions.labels" [colors]="utilizationChartOptions.colors"
                       [legend]="utilizationChartOptions.legend" [stroke]="utilizationChartOptions.stroke"
                       [dataLabels]="utilizationChartOptions.dataLabels"
@@ -235,7 +235,7 @@
                 <article class="panel-card donut-panel">
                   <h6 class="card-title">Idle Time Breakdown</h6>
                   <div class="mini-donut-wrap">
-                    <apx-chart [series]="monthlyIdleChartOptions.series" [chart]="monthlyIdleChartOptions.chart"
+                    <apx-chart *ngIf="pageReady" [series]="monthlyIdleChartOptions.series" [chart]="monthlyIdleChartOptions.chart"
                       [labels]="monthlyIdleChartOptions.labels" [colors]="monthlyIdleChartOptions.colors"
                       [legend]="monthlyIdleChartOptions.legend" [stroke]="monthlyIdleChartOptions.stroke"
                       [dataLabels]="monthlyIdleChartOptions.dataLabels"
@@ -254,7 +254,7 @@
           <div class="col-12">
             <article class="panel-card">
               <h6 class="card-title mb-2">Daily Output</h6>
-              <apx-chart *ngIf="monthlyChartsReady" [series]="dailyOutputChartOptions.series"
+              <apx-chart *ngIf="pageReady && monthlyChartsReady" [series]="dailyOutputChartOptions.series"
                 [chart]="dailyOutputChartOptions.chart" [colors]="dailyOutputChartOptions.colors"
                 [dataLabels]="dailyOutputChartOptions.dataLabels" [stroke]="dailyOutputChartOptions.stroke"
                 [xaxis]="dailyOutputChartOptions.xaxis" [yaxis]="dailyOutputChartOptions.yaxis"
