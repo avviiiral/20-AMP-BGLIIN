@@ -33,8 +33,8 @@ const routes: Routes = [
   {
     path: 'bgliin',
     component: PersonDataComponent
-  }
-  //{ path: '**', redirectTo: 'auth/login' }
+  },
+  { path: '**', redirectTo: 'auth/login' }
 
 ];
 

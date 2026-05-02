@@ -8,6 +8,11 @@ import { CameraDetailComponent } from './camera-detail/camera-detail.component';
 
 const routes: Routes = [
   {
+    path: '',
+    component: DashboardComponent,
+    pathMatch: 'full'
+  },
+  {
     path: 'camera/:id',
     component: CameraDetailComponent
   },
@@ -19,11 +24,7 @@ const routes: Routes = [
     path: 'station/:id',
     component: StationComponent
   },
-  {
-    path: '',
-    component: DashboardComponent,
-    pathMatch: 'full'
-  }
+  
 ];
 
 @NgModule({
