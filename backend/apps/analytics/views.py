@@ -265,3 +265,39 @@ def camera_history(request, camera_id):
         })
 
     return Response(history)
+
+@api_view(['GET'])
+def station_dashboard(request, station_name):
+    import csv
+    from core.config import CSV_FILE
+    from core.target_loader import TARGETS
+
+    hourly_output = []
+    total_output = 0
+
+    with open(CSV_FILE, 'r') as f:
+        reader = csv.DictReader(f)
+
+        for row in reader:
+            count = int(row[station_name])  # 🔥 KEY CHANGE
+
+            hourly_output.append({
+                "hour": row["Time Slot"],
+                "count": count
+            })
+
+            total_output += count
+
+    # Target logic
+    target_per_hour = TARGETS.get(station_name, 400)
+    expected_total = target_per_hour * len(hourly_output)
+
+    efficiency = (total_output / expected_total) * 100 if expected_total else 0
+
+    return Response({
+        "station": station_name,
+        "total_output": total_output,
+        "hourly_output": hourly_output,
+        "efficiency": round(efficiency, 2),
+        "target_per_hour": target_per_hour
+    })
