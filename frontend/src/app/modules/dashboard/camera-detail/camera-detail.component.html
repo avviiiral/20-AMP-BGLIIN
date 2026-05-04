@@ -1,2 +1,117 @@
-<h1>Camera Detail Page</h1>
-<p>Camera ID: {{ cameraId }}</p>
+<div class="page" *ngIf="data">
+
+  <!-- HEADER -->
+  <div class="top-bar">
+    <div class="back">← Back</div>
+    <div class="title">
+      {{cameraId}} - {{data.name}}
+      <span class="live-dot"></span>
+    </div>
+
+    <div class="meta">
+      <span>🕒 {{data.date}}</span>
+      <span>DAY SHIFT</span>
+    </div>
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs">
+    <div class="tab active">Efficiency</div>
+    <div class="tab">Clips</div>
+    <div class="tab">Monthly History</div>
+  </div>
+
+  <!-- MAIN GRID -->
+  <div class="grid">
+
+    <!-- DONUT -->
+    <div class="card center">
+      <div class="card-title">Today's Output</div>
+
+      <div 
+        class="donut"
+        [style.background]="'conic-gradient(#16a34a ' + data.efficiency + '%, #e5e7eb 0)'"
+      >
+        <div class="inner">
+          <div class="big">{{data.efficiency}}%</div>
+          <div class="sub">{{data.output}} / {{data.target}}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BAR CHART -->
+    <div class="card chart-card">
+      <div class="card-title">
+        Hourly Output
+        <button class="idle-btn">Show Idle Time</button>
+      </div>
+
+      <div class="chart">
+
+        <div 
+          class="target-line"
+          [style.bottom.%]="(targetPerHour / maxValue) * 100"
+        ></div>
+
+        <div class="bars">
+          <div *ngFor="let val of chartData; let i = index" class="bar-wrap">
+
+            <div 
+              class="bar"
+              [ngClass]="val < targetPerHour ? 'bad' : 'good'"
+              [style.height.%]="(val / maxValue) * 100"
+            >
+              <span>{{val}}</span>
+            </div>
+
+            <div class="label">{{chartLabels[i]}}</div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <div class="target-text">
+        Target: {{targetPerHour}} units/hr
+      </div>
+    </div>
+
+    <!-- IDLE -->
+    <div class="card center">
+      <div class="card-title">Idle Time Breakdown</div>
+      <div class="idle-placeholder">Not available yet</div>
+    </div>
+
+  </div>
+
+  <!-- KPI ROW -->
+  <div class="kpis">
+
+    <div class="kpi green">
+      <div class="value">+{{data.pieces_ahead}}</div>
+      <div class="label">Pieces Lost</div>
+    </div>
+
+    <div class="kpi green">
+      <div class="value">{{data.efficiency}}%</div>
+      <div class="label">Efficiency</div>
+    </div>
+
+    <div class="kpi green">
+      <div class="value">{{data.pph}}</div>
+      <div class="label">PPH</div>
+    </div>
+
+    <div class="kpi green">
+      <div class="value">{{(data.avg_cycle_time/60) | number:'1.1-1'}}</div>
+      <div class="label">Avg. Cycle Time</div>
+    </div>
+
+    <div class="kpi red">
+      <div class="value">--</div>
+      <div class="label">Idle Time</div>
+    </div>
+
+  </div>
+
+</div>
