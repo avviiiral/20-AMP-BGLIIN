@@ -2,7 +2,7 @@
 
   <!-- HEADER -->
   <div class="top-bar">
-    <div class="back">← Back</div>
+    <div class="back" routerLink="/dashboard">← Back</div>
     <div class="title">
       {{cameraId}} - {{data.name}}
       <span class="live-dot"></span>
@@ -14,104 +14,163 @@
     </div>
   </div>
 
-  <!-- TABS -->
-  <div class="tabs">
-    <div class="tab active">Efficiency</div>
-    <div class="tab">Clips</div>
-    <div class="tab">Monthly History</div>
-  </div>
+ <!-- tab -->
+<div class="tabs-wrap mt-4">
+  <ul class="nav nav-pills person-tabs" id="person-data-tabs" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="efficiency-tab" data-bs-toggle="pill" data-bs-target="#efficiency-pane"
+        type="button" role="tab" aria-controls="efficiency-pane" aria-selected="true">
+        Efficiency
+      </button>
+    </li>
+    <!-- <li class="nav-item" role="presentation">
+      <button class="nav-link" id="clips-tab" data-bs-toggle="pill" data-bs-target="#clips-pane" type="button"
+        role="tab" aria-controls="clips-pane" aria-selected="false">
+        Clips
+      </button>
+    </li> -->
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="monthly-tab" data-bs-toggle="pill" data-bs-target="#monthly-pane" type="button"
+        role="tab" aria-controls="monthly-pane" aria-selected="false">
+        Monthly History
+      </button>
+    </li>
+  </ul>
 
-  <!-- MAIN GRID -->
-  <div class="grid">
+  <div class="tab-content" id="person-data-tabs-content">
+    <div class="tab-pane fade show active" id="efficiency-pane" role="tabpanel" aria-labelledby="efficiency-tab"
+      tabindex="0">
+      <!-- MAIN GRID -->
+      <div class="grid">
 
-    <!-- DONUT -->
-    <div class="card center">
-      <div class="card-title">Today's Output</div>
+        <!-- DONUT -->
+        <div class="card center">
+          <div class="card-title">Today's Output</div>
 
-      <div 
-        class="donut"
-        [style.background]="'conic-gradient(#16a34a ' + data.efficiency + '%, #e5e7eb 0)'"
-      >
-        <div class="inner">
-          <div class="big">{{data.efficiency}}%</div>
-          <div class="sub">{{data.output}} / {{data.target}}</div>
+          <div class="donut" [style.background]="'conic-gradient(#16a34a ' + data.efficiency + '%, #e5e7eb 0)'">
+            <div class="inner">
+              <div class="big">{{data.efficiency}}%</div>
+              <div class="sub">{{data.output}} / {{data.target}}</div>
+            </div>
+          </div>
         </div>
+
+        <!-- BAR CHART -->
+        <div class="card chart-card">
+          <div class="card-title">
+            Hourly Output
+            <button class="idle-btn">Show Idle Time</button>
+          </div>
+
+          <div class="chart">
+
+            <div class="target-line" [style.bottom.%]="(targetPerHour / maxValue) * 100"></div>
+
+            <div class="bars">
+              <div *ngFor="let val of chartData; let i = index" class="bar-wrap">
+
+                <div class="bar" [ngClass]="val < targetPerHour ? 'bad' : 'good'"
+                  [style.height.%]="(val / maxValue) * 100">
+                  <span>{{val}}</span>
+                </div>
+
+                <div class="label">{{chartLabels[i]}}</div>
+
+              </div>
+            </div>
+
+          </div>
+
+          <div class="target-text">
+            Target: {{targetPerHour}} units/hr
+          </div>
+        </div>
+
+        <!-- IDLE -->
+        <div class="card center">
+          <div class="card-title">Idle Time Breakdown</div>
+          <div class="idle-placeholder">Not available yet</div>
+        </div>
+
+      </div>
+
+      <!-- KPI ROW -->
+      <div class="kpis">
+
+        <div class="kpi green">
+          <div class="value">+{{data.pieces_ahead}}</div>
+          <div class="label">Pieces Lost</div>
+        </div>
+
+        <div class="kpi green">
+          <div class="value">{{data.efficiency}}%</div>
+          <div class="label">Efficiency</div>
+        </div>
+
+        <div class="kpi green">
+          <div class="value">{{data.pph}}</div>
+          <div class="label">PPH</div>
+        </div>
+
+        <div class="kpi green">
+          <div class="value">{{(data.avg_cycle_time/60) | number:'1.1-1'}}</div>
+          <div class="label">Avg. Cycle Time</div>
+        </div>
+
+        <div class="kpi red">
+          <div class="value">--</div>
+          <div class="label">Idle Time</div>
+        </div>
+
       </div>
     </div>
 
-    <!-- BAR CHART -->
-    <div class="card chart-card">
-      <div class="card-title">
-        Hourly Output
-        <button class="idle-btn">Show Idle Time</button>
-      </div>
+    <!-- <div class="tab-pane fade" id="monthly-pane" role="tabpanel" aria-labelledby="monthly-tab" tabindex="0"> -->
+    <div class="tab-pane fade" id="monthly-pane" role="tabpanel">
 
-      <div class="chart">
+      <!-- SIMPLE TITLE -->
+      <h5 class="mb-3 mt-3">Monthly History</h5>
 
-        <div 
-          class="target-line"
-          [style.bottom.%]="(targetPerHour / maxValue) * 100"
-        ></div>
+      <!-- CALENDAR -->
+      <div class="calendar-container">
 
-        <div class="bars">
-          <div *ngFor="let val of chartData; let i = index" class="bar-wrap">
-
-            <div 
-              class="bar"
-              [ngClass]="val < targetPerHour ? 'bad' : 'good'"
-              [style.height.%]="(val / maxValue) * 100"
-            >
-              <span>{{val}}</span>
-            </div>
-
-            <div class="label">{{chartLabels[i]}}</div>
-
+        <div class="calendar-grid">
+          <div *ngFor="let day of calendarDays" class="day" (click)="onDateClick(day)"
+            [class.active]="selectedDate.endsWith(day.toString().padStart(2,'0'))">
+            {{ day }}
           </div>
         </div>
 
       </div>
 
-      <div class="target-text">
-        Target: {{targetPerHour}} units/hr
+      <!-- RESULT -->
+      <div class="result-box mt-3">
+
+        <div *ngIf="calendarLoading">Loading...</div>
+
+        <div *ngIf="calendarError">
+          {{ calendarError }}
+        </div>
+
+        <div *ngIf="calendarData">
+          <h6>Data for {{ selectedDate }}</h6>
+          <pre>{{ calendarData | json }}</pre>
+        </div>
+
       </div>
-    </div>
 
-    <!-- IDLE -->
-    <div class="card center">
-      <div class="card-title">Idle Time Breakdown</div>
-      <div class="idle-placeholder">Not available yet</div>
     </div>
-
+    <!-- </div> -->
   </div>
-
-  <!-- KPI ROW -->
-  <div class="kpis">
-
-    <div class="kpi green">
-      <div class="value">+{{data.pieces_ahead}}</div>
-      <div class="label">Pieces Lost</div>
-    </div>
-
-    <div class="kpi green">
-      <div class="value">{{data.efficiency}}%</div>
-      <div class="label">Efficiency</div>
-    </div>
-
-    <div class="kpi green">
-      <div class="value">{{data.pph}}</div>
-      <div class="label">PPH</div>
-    </div>
-
-    <div class="kpi green">
-      <div class="value">{{(data.avg_cycle_time/60) | number:'1.1-1'}}</div>
-      <div class="label">Avg. Cycle Time</div>
-    </div>
-
-    <div class="kpi red">
-      <div class="value">--</div>
-      <div class="label">Idle Time</div>
-    </div>
-
-  </div>
+</div>
 
 </div>
+
+
+
+<div  *ngIf="!data">
+  <h2>Data not found</h2>
+</div>
+
+
+<!-- DEMO -->

@@ -12,7 +12,15 @@ export class HeaderComponent {
   nowTime = '01:51:57 PM';
   nowDate = 'Wednesday, Mar 04 2026';
 
-  confirmLogout(): void {
+  // confirmLogout(): void {
+  //   this.router.navigate(['/auth/login']);
+  // }
+
+
+   confirmLogout() {
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('user');
+
     this.router.navigate(['/auth/login']);
   }
 }

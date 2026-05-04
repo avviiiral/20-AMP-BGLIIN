@@ -182,3 +182,39 @@
   font-size: 12px;
   padding: 4px 8px;
 }
+
+
+.calendar-container {
+  max-width: 500px;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+}
+
+.day {
+  padding: 18px;
+  background: #e5e7eb;
+  text-align: center;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.2s;
+  font-weight: 500;
+}
+
+.day:hover {
+  background: #cbd5f5;
+}
+
+.day.active {
+  background: #2563eb;
+  color: white;
+}
+
+.result-box {
+  padding: 15px;
+  border-radius: 10px;
+  background: #f9fafb;
+}
