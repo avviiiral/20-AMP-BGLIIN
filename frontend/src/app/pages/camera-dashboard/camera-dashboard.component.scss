@@ -1,0 +1,37 @@
+.container {
+  padding: 20px;
+  color: #fff;
+  background: #0f172a;
+  min-height: 100vh;
+}
+
+.top {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  gap: 20px;
+}
+
+.card {
+  background: #1e293b;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.wide {
+  grid-column: span 1;
+}
+
+.kpis {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+}
+
+.kpi {
+  background: #1e293b;
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+}
