@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -6,38 +6,62 @@ import { Router } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
 
   email: string = '';
-  password: any = '';
+  password: string = '';
   errorMessage = '';
-
-
-
-  ngOnInit(){
-    if (localStorage.getItem('isLoggedIn') === 'true') {
-  this.router.navigate(['/dashboard']);
-}
-  }
 
   constructor(private router: Router) {}
 
-  login() {
-    const demoEmail = 'bagla@gmail.com';
-    const demoPassword = 'bagla@123';
+  ngOnInit(): void {
 
-    if (this.email === demoEmail && this.password === demoPassword) {
+    // ✅ If already logged in, redirect to dashboard
+    if (localStorage.getItem('isLoggedIn') === 'true') {
+      this.router.navigate(['/dashboard']);
+    }
+
+  }
+
+  login(): void {
+
+    // ✅ Multiple users
+    const users = [
+      {
+        email: 'bagla@gmail.com',
+        password: 'bagla@123'
+      },
+      {
+        email: 'admin@gmail.com',
+        password: 'admin123'
+      },
+      {
+        email: 'test@gmail.com',
+        password: 'test123'
+      }
+    ];
+
+    // ✅ Check credentials
+    const validUser = users.find(
+      user =>
+        user.email === this.email &&
+        user.password === this.password
+    );
+
+    if (validUser) {
 
       // ✅ Store login state
       localStorage.setItem('isLoggedIn', 'true');
-      localStorage.setItem('user', this.email);
+      localStorage.setItem('user', validUser.email);
 
-      // ✅ Redirect
+      // ✅ Redirect to dashboard
       this.router.navigate(['/dashboard']);
 
     } else {
+
       this.errorMessage = 'Invalid credentials';
-      alert("wrong password")
+      alert('Wrong email or password');
+
     }
   }
 }
